@@ -1,4 +1,5 @@
 export function isValidAddress(address) {
+    if (!address) return false;
     const unprefixedAddress = address.replace(/^0x/, '');
     if (/^([A-Fa-f0-9]{40})$/.test(unprefixedAddress))
         return unprefixedAddress;

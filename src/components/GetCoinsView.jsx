@@ -10,12 +10,14 @@ class GetCoinsView extends React.Component {
             invalid: false,
             message: false,
             nodeInput: false,
+            blackList: false,
+            messageError: '',
             success: 0
         };
         this.state = {
+            recaptchaResponse: false,
             ...this.inputValidated
         }
-        this.recaptchaRef = React.createRef();
         this.onchange = this.onchange.bind(this);
         this.onClick = this.onClick.bind(this);
         this.getInputErrors = this.getInputErrors.bind(this);
@@ -23,36 +25,37 @@ class GetCoinsView extends React.Component {
     }
 
     getInputErrors() {
-        if (!this.toAddress && !this.node) {
+        if (!isValidAddress(this.toAddress) && !isValidUrl(this.node)) {
             return this.inputValidated = {
                 invalid: 'invalid',
-                message: 'Invalid Address! Please try again',
-                nodeInput: 'Node Url can\'t be empty.'
+                message: 'Invalid Address! Please try again.',
+                nodeInput: 'Invalid Url! Please try again.'
             }
         }
-        if (!this.toAddress || !isValidAddress(this.toAddress)) {
+        if (!isValidAddress(this.toAddress) && isValidUrl(this.node)) {
             return this.inputValidated = {
                 invalid: 'invalid',
                 message: 'Invalid Address! Please try again.',
                 nodeInput: false
             }
         }
-        if (!this.node || !isValidUrl(this.node)) {
+
+        if (isValidAddress(this.toAddress) && !isValidUrl(this.node)) {
             return this.inputValidated = {
                 invalid: false,
-                message: false,
                 nodeInput: 'Invalid Url! Please try again.'
             }
         }
+
         return false;
     }
 
     onClick() {
-        if (!this.getInputErrors()) {
+        if (!this.getInputErrors() && this.state.recaptchaResponse) {
             this.inputValidated = {
                 invalid: false,
                 message: false,
-                nodeInput: false
+                nodeInput: false,
             }
 
             fetch(`http://192.168.1.160:4555/faucet`, {
@@ -65,14 +68,25 @@ class GetCoinsView extends React.Component {
                     'Content-Type': ' application/json'
                 }
             }).then((response) => {
+
                 if (response.status === 200) {
                     this.inputValidated.success = 1;
+                    response.json().then(data => {
+                        this.inputValidated.txHash = data
+                    }).finally(() => this.setState({ ...this.state, ...this.inputValidated }))
                 }
-            }).catch(error => console.error('Error:', error)).finally(() => {
-                this.setState(this.inputValidated)
+
+                this.inputValidated.blackList = true
+
+                response.json().then(data => {
+                    this.inputValidated.messageError = data;
+                }).finally(() => this.setState({ ...this.state, ...this.inputValidated }))
+
+            }).catch(error => { }).finally(() => {
+                this.setState({ ...this.state, ...this.inputValidated })
             });
         } else {
-            this.setState(this.inputValidated)
+            this.setState({ ...this.state, ...this.inputValidated })
         }
     }
     onchange({ target: { name, value } }) {
@@ -81,7 +95,8 @@ class GetCoinsView extends React.Component {
 
     recaptchaOnChange(value) {
         this.setState({
-            'g-recaptcha-response': value
+            recaptchaResponse: value,
+            ...this.inputValidated
         })
     }
 
@@ -89,6 +104,10 @@ class GetCoinsView extends React.Component {
         return (
             <div className="get-coins-content full-width flex-between">
                 <div className="get-coins-container">
+                    {
+                        this.inputValidated.blackList === true ?
+                            <p className="blacklist-message">{this.inputValidated.messageError}</p> : null
+                    }
                     {
                         this.inputValidated.invalid ?
                             <p className="message-result">{this.inputValidated.message}</p> : null
@@ -104,20 +123,22 @@ class GetCoinsView extends React.Component {
                         </div>
                         <input className="node-url-input" name="node" onChange={this.onchange} />
                     </div>
-                    <ReCAPTCHA
-                        sitekey="6LfSYsMUAAAAALAZ_2jdeIKUkIiNn_biyHddemyu"
-                        onChange={this.recaptchaOnChange}
-                        ref="recaptcha"
-                    />|
-                <button className="get-coins-button" onClick={this.onClick}>GET COINS</button>
+                    <div>
+                        <ReCAPTCHA
+                            sitekey="6LfSYsMUAAAAALAZ_2jdeIKUkIiNn_biyHddemyu"
+                            onChange={this.recaptchaOnChange}
+                            ref="recaptcha"
+                        />
+                    </div>
+                    <button className="get-coins-button" onClick={this.onClick}>GET COINS</button>
                 </div>
                 {
                     this.inputValidated.success === 1 ? (
                         <div className="get-coins-notification success flex-center">
                             <div className="notification-container full-width">
-                                <p className="amount-text">We sent 1 coins to address:</p>
+                                <p className="amount-text">We sent 1 grandPaCoin to address:</p>
                                 <p>{this.toAddress}</p>
-                                <p className="tx-hash-text">Transaction: 023234234234234234234234234</p>
+                                <p className="tx-hash-text">{`Transaction: ${this.inputValidated.txHash} `}</p>
                             </div>
                         </div>
                     ) : null

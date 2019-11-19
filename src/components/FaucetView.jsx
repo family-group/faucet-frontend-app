@@ -38,7 +38,7 @@ class FaucetView extends React.Component {
                                     <GetCoinsView /> :
                                     (
                                         <div className="donate-section flex wrap full-width">
-                                            <p className="address-text">{`Our address is: 0xFe711fa35F0A060dAc55feDB68D52F610532bBC7`}</p>
+                                            <p className="address-text">Our address is: 0x607168b61015cfe766a3a6716180f9b60e909f35</p>
                                             <p className="thanks-text">Thank you for donating!</p>
                                         </div>
                                     )

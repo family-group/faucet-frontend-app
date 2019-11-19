@@ -40,13 +40,14 @@
     width: 100%;
     color:#ffffff;
     padding: 3.5% 10%;
-    background:#00dfe9;
+    background:#224870;
     border-radius: 3px;
     font-weight: bold;
     cursor: pointer;
+    margin-top: 65px;
 }
 .get-coins-container {
-    width: 35%;
+    width: 50%;
 }
 .get-coins-notification {
     width: 60%;
@@ -55,28 +56,31 @@
     text-align: center;
     font-size: 1.2em;
 }
-.invalid {
-    border: 1px solid red
+.notification-container p {
+    word-break: break-all;
 }
 .message-result {
     padding-bottom: 12px;
     color: red;
 }
-.invalid:focus {
-    border: 1px solid red
-}
 .amount-text {
     font-size: 1.1em;
-    color:#00dfe9;
+    color:#224870;
     font-weight: bold;
 }
 .tx-hash-text {
+    padding-top: 5px;
     font-size: 0.9em;
     color:#626161;
 }
 .node-error {
     padding-top: 20px;
     color:red;
+}
+.blacklist-message {
+    padding-bottom: 20px;
+    color: red;
+    font-weight: bold;
 }
 
 @media (max-width: 800px) {
@@ -85,7 +89,7 @@
         align-items: flex-start;
     }
     .get-coins-container {
-        width: 50%;
+        width: 100%;
     }
     .get-coins-notification {
         margin-top: 30px;
@@ -94,9 +98,6 @@
 }
 
 @media (max-width: 500px) {
-    .get-coins-container {
-        width: 100%
-    }
     .get-coins-notification {
         font-size: 1em;
     }

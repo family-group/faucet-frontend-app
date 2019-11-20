@@ -67,20 +67,19 @@ class GetCoinsView extends React.Component {
                 headers: {
                     'Content-Type': ' application/json'
                 }
-            }).then((response) => {
+            }).then(async (response) => {
 
                 if (response.status === 200) {
                     this.inputValidated.success = 1;
-                    response.json().then(data => {
-                        this.inputValidated.txHash = data
-                    }).finally(() => this.setState({ ...this.state, ...this.inputValidated }))
+                    let data = await response.json();
+                    this.inputValidated.txHash = data.txHash
+                    this.setState({ ...this.state, ...this.inputValidated });
                 }
 
                 this.inputValidated.blackList = true
 
-                response.json().then(data => {
-                    this.inputValidated.messageError = data;
-                }).finally(() => this.setState({ ...this.state, ...this.inputValidated }))
+                this.inputValidated.messageError = await response.json();
+                this.setState({ ...this.state, ...this.inputValidated });
 
             }).catch(error => { }).finally(() => {
                 this.setState({ ...this.state, ...this.inputValidated })

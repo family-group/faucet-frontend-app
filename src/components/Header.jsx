@@ -1,7 +1,7 @@
 import React from 'react';
 // import styles
 import './Header.css';
-import GpcIcon from '../assets/grandpacoin_faucet_logo.svg';
+import GpcIcon from '../assets/GRANDPACOIN-FAUCET-LOGO.svg';
 
 class Header extends React.Component {
     render() {

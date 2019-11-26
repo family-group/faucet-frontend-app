@@ -1,5 +1,6 @@
 import React from 'react';
 import './GetCoinsView.css';
+import { url } from '../globals';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { isValidAddress, isValidUrl } from '../utils/function';
 
@@ -58,7 +59,7 @@ class GetCoinsView extends React.Component {
                 nodeInput: false,
             }
 
-            fetch(`http://192.168.1.160:4555/faucet`, {
+            fetch(url, {
                 method: 'POST',
                 body: JSON.stringify({
                     toAddress: this.toAddress,
@@ -137,7 +138,7 @@ class GetCoinsView extends React.Component {
                             <div className="notification-container full-width">
                                 <p className="amount-text">We sent 1 grandPaCoin to address:</p>
                                 <p>{this.toAddress}</p>
-                                <p className="tx-hash-text">{`Transaction: ${this.inputValidated.txHash} `}</p>
+                                <p className="tx-hash-text">{`Transaction: 0x${this.inputValidated.txHash} `}</p>
                             </div>
                         </div>
                     ) : null

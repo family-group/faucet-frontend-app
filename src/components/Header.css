@@ -1,0 +1,28 @@
+.header-container {
+    width: 100%;
+    background: #224870;
+    display: flex;
+    justify-content: center;
+    padding: 7% 0;
+
+}
+
+.header-icon {
+    display: flex;
+    width: 60%;
+    max-width: 500px;
+}
+.header-icon img {
+    display: block;
+    width: 100%;
+    object-fit: contain;
+}
+
+@media(max-width: 450px) {
+    .header-container {
+        padding: 5% 0;
+    }
+    .header-icon {
+        width: 80%;
+    }
+}

@@ -1,0 +1,105 @@
+.address-input {
+    width: 100%;
+    padding: 2% 3%;
+    background:#f2f2f2;
+    border: none;
+    border-radius: 3px;
+}
+.node-url-container {
+    width: 100%;
+    display: flex;
+    padding: 20px 0;
+    white-space: nowrap;
+    align-items: stretch;
+}
+.node-url-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background:#e2e2e2;
+    color:#666;
+    width: 35%;
+    border-radius: 3px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+}
+.node-url-input {
+    width: 65%;
+    background:#f2f2f2;
+    border: none;
+    padding: 2% 3%;
+    border-radius: 3px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+.node-url-input:focus, .address-input:focus {
+    outline: none;
+    border: none;
+}
+.get-coins-button {
+    width: 100%;
+    color:#ffffff;
+    padding: 3.5% 10%;
+    background:#224870;
+    border-radius: 3px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 65px;
+}
+.get-coins-container {
+    width: 50%;
+}
+.get-coins-notification {
+    width: 45%;
+    padding: 64px 12px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1.2em;
+}
+.notification-container p {
+    word-break: break-all;
+}
+.message-result {
+    padding-bottom: 12px;
+    color: red;
+}
+.amount-text {
+    font-size: 1.1em;
+    color:#224870;
+    font-weight: bold;
+}
+.tx-hash-text {
+    padding-top: 5px;
+    font-size: 0.9em;
+    color:#626161;
+}
+.node-error {
+    padding-top: 20px;
+    color:red;
+}
+.blacklist-message {
+    padding-bottom: 20px;
+    color: red;
+    font-weight: bold;
+}
+
+@media (max-width: 800px) {
+    .get-coins-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .get-coins-container {
+        width: 100%;
+    }
+    .get-coins-notification {
+        margin-top: 30px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+    .get-coins-notification {
+        font-size: 1em;
+    }
+}

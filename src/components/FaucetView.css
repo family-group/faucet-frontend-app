@@ -1,0 +1,62 @@
+.faucet-view-principal {
+    width: 100%;
+    background: #fafafa;
+    padding: 10% 0;
+}
+.faucet-view-container {
+    width: 80%;
+    background: #ffffff;
+    box-shadow: 3px 4px 5px 2px#dfdfdf;
+    border-radius: 5px;
+}
+.faucet-view-sections {
+    display: flex;
+    padding: 21px 0;
+    min-width: 30%;
+}
+.get-coins-section, .donate-coins-section {
+    width: 50%;
+    text-align: center;
+    color: #aaa8a8;
+    cursor: pointer;
+}
+.get-coins-section p, .donate-coins-section p{
+    margin: 0
+}
+.active {
+    color: #000000
+}
+.donate-coins-section {
+    border-left: 1px solid #000000;
+    padding-left: 15px;
+}
+.address-text {
+    color: #aaa8a8;
+    font-size: 1.3em;
+    width: 100%;
+    word-wrap: break-word;
+}
+.thanks-text {
+    margin: 0;
+    font-size: 1.5em;
+    color: #224870;
+    padding-top: 10px;
+}
+.panel-content-container {
+    padding: 15px 30px;
+}
+
+@media (max-width:900px) {
+    .faucet-view-sections {
+        min-width: 40%;
+    }
+}
+@media (max-width: 800px) {
+    .faucet-view-container {
+        width: 90%;
+    }
+    .faucet-view-sections {
+        width: 100%;
+    }
+
+}
